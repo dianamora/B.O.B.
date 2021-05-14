@@ -5,7 +5,7 @@ class BreweriesController < ApplicationController
   def index
     @breweries = Brewery.all
 
-    render json: @breweries, only: [:id, :name, :location, :hours, :phone_number, :img_url]
+    render json: @breweries, only: [:id, :name, :location, :hours, :contact, :img_url, :website]
   end
 
   # GET /breweries/1
@@ -18,8 +18,9 @@ class BreweriesController < ApplicationController
       name: brewery.name, 
       location: brewery.location, 
       hours: brewery.hours, 
-      phone_number: brewery.phone_number, 
+      contact: brewery.contact 
       img_url: brewery.img_url 
+      website: brewery.website
     }
     else
       render json: { message: "Brewery not found" }
