@@ -18,8 +18,8 @@ class BreweriesController < ApplicationController
       name: brewery.name, 
       location: brewery.location, 
       hours: brewery.hours, 
-      contact: brewery.contact 
-      img_url: brewery.img_url 
+      contact: brewery.contact,
+      img_url: brewery.img_url,
       website: brewery.website
     }
     else
@@ -60,6 +60,6 @@ class BreweriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def brewery_params
-      params.require(:brewery).permit(:name, :location, :hours, :phone_number, :img_url)
+      params.require(:brewery).permit(:name, :location, :hours, :contact, :img_url, :website)
     end
 end
