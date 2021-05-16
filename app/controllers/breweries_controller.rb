@@ -29,12 +29,13 @@ class BreweriesController < ApplicationController
 
   # POST /breweries
   def create
-    @brewery = Brewery.new(brewery_params)
-
-    if @brewery.save
-      render json: @brewery, status: :created, location: @brewery
-    else
-      render json: @brewery.errors, status: :unprocessable_entity
+    if first.click? #(user hit submit)
+    YelpApi.search(brewery_params) #search will occur, render results
+    #then render results , confirm restaurant they want
+    render json: #(results)
+    else 
+      #message: did you mean? , confirm second click
+      @brewery.new(brewery_params)
     end
   end
 
@@ -60,6 +61,6 @@ class BreweriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def brewery_params
-      params.require(:brewery).permit(:name, :location, :hours, :contact, :img_url, :website)
+      params.require(:brewery).permit(:name, :city, :state)
     end
 end
