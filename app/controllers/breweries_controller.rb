@@ -3,22 +3,24 @@ class BreweriesController < ApplicationController
 
   # GET /breweries
   def index
-    results = YelpApi.search(params[:name, :city, :state])
     @breweries = Brewery.all
 
-    render json: @breweries, only: [:name, :city, :state]
+    render json: @breweries, only: [:id, :name, :location, :hours, :contact, :img_url, :website]
   end
 
   # GET /breweries/1
   def show
-    @brewery = Brewery.find_by(id: params[:yelp_id])
+    brewery = Brewery.find_by(id: params[:id])
 
-    if @brewery
+    if brewery
       render json: { 
-      yelp_id: brewery.id, 
+      id: brewery.id, 
       name: brewery.name, 
-      city: brewery.city,
-      state: brewery.state
+      location: brewery.location, 
+      hours: brewery.hours, 
+      contact: brewery.contact,
+      img_url: brewery.img_url,
+      website: brewery.website
     }
     else
       render json: { message: "Brewery not found" }
@@ -28,13 +30,11 @@ class BreweriesController < ApplicationController
   # POST /breweries
   def create
     @brewery = Brewery.new(brewery_params)
-    if first.click? #(user hit submit)
-    YelpApi.search(brewery_params) #search will occur, render results
-    #then render results , confirm restaurant they want
-    render json: #(results)
-    else 
-      #message: did you mean? , confirm second click
-      @brewery.new(brewery_params)
+
+    if @brewery.save
+      render json: @brewery, status: :created, location: @brewery
+    else
+      render json: @brewery.errors, status: :unprocessable_entity
     end
   end
 
