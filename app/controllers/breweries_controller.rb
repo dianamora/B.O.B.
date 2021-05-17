@@ -5,22 +5,19 @@ class BreweriesController < ApplicationController
   def index
     @breweries = Brewery.all
 
-    render json: @breweries, only: [:id, :name, :location, :hours, :contact, :img_url, :website]
+    render json: @breweries, only: [:id, :name, :city, :state]
   end
 
   # GET /breweries/1
   def show
-    brewery = Brewery.find_by(id: params[:id])
+    @brewery = Brewery.find_by(id: params[:id])
 
     if brewery
       render json: { 
       id: brewery.id, 
       name: brewery.name, 
-      location: brewery.location, 
-      hours: brewery.hours, 
-      contact: brewery.contact,
-      img_url: brewery.img_url,
-      website: brewery.website
+      city: brewery.city, 
+      state: brewery.state
     }
     else
       render json: { message: "Brewery not found" }
@@ -30,12 +27,22 @@ class BreweriesController < ApplicationController
   # POST /breweries
   def create
     @brewery = Brewery.new(brewery_params)
-
+    # term = (brewery_params[:name])
+    # results = YelpApi.search(params[:name], params[:city])
+    # location = YelpApi.search(brewery_params[:city], brewery_params[:state])
     if @brewery.save
-      render json: @brewery, status: :created, location: @brewery
+      render json:{ message: "Is this the brewery you were looking for?"}
     else
       render json: @brewery.errors, status: :unprocessable_entity
     end
+  end
+
+  def fetch_breweries
+    name = params[:name]
+    city = params[:city]
+    state = params[:state]
+    location = {city: city, state: state}
+    # results = YelpApi.search(name, location)
   end
 
   # PATCH/PUT /breweries/1
@@ -62,4 +69,5 @@ class BreweriesController < ApplicationController
     def brewery_params
       params.require(:brewery).permit(:name, :city, :state)
     end
+  
 end
