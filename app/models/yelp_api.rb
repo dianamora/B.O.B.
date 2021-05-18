@@ -20,8 +20,8 @@ class YelpApi < ApplicationRecord
     end
 
 
-    def self.api_business(business_id)
-        url = "#{API_HOST}#{BUSINESS_PATH}#{business_id}"
+    def self.api_business(yelp_id)
+        url = "#{API_HOST}#{BUSINESS_PATH}#{yelp_id}"
         response = HTTP.auth("Bearer #{ENV['API_KEY']}").get(url)
         JSON.response.parse
       end

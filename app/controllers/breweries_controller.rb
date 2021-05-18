@@ -57,8 +57,10 @@ class BreweriesController < ApplicationController
    
     results = YelpApi.search(params[:name],[:location])
     # =[{"city" => 0 }])
-    byebug
+    # byebug
     if @brewery.save
+      render @brewery
+    elsif @brewery = YelpApi.find_by(business_id: params[:business_id])
       render results
     else
       render json: {message: "Sorry no brewery found"}
