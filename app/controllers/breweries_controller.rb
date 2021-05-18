@@ -51,16 +51,19 @@ class BreweriesController < ApplicationController
   #   end
   # end
 
-  #ATTEMPT 3
-  # def create
-  #   @brewery = Brewery.new(brewery_params)
-  #   results = YelpApi.search(url:brewery_params[:name][:url][:location]["0"][:url])
-  #   if @brewery.save
-  #     render results
-  #   else
-  #     render json: {message: "Sorry no brewery found"}
-  #   end
-  # end
+  # ATTEMPT 3
+  def create
+    @brewery = Brewery.new(brewery_params)
+   
+    results = YelpApi.search(params[:name],[:location])
+    # =[{"city" => 0 }])
+    byebug
+    if @brewery.save
+      render results
+    else
+      render json: {message: "Sorry no brewery found"}
+    end
+  end
 
   #POST ACTION WITHOUT API, !!DOES NOT REDIRECT BECAUSE OF HOW FRONTEND IS SET UP!!
   # def create
