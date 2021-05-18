@@ -25,15 +25,29 @@ class BreweriesController < ApplicationController
   end
 
   # POST /breweries
+  # def create
+  #   @brewery = Brewery.new(brewery_params)
+    # /term = (brewery_params[:name])
+    # /results = YelpApi.search(params[:name], params[:city])
+    # /location = YelpApi.search(brewery_params[:city], brewery_params[:state])
+  #   if @brewery.save
+  #     render json:{ message: "Is this the brewery you were looking for?"}
+  #   else
+  #     render json: @brewery.errors, status: :unprocessable_entity
+  #   end
+  # end
+
   def create
     @brewery = Brewery.new(brewery_params)
-    # term = (brewery_params[:name])
-    # results = YelpApi.search(params[:name], params[:city])
-    # location = YelpApi.search(brewery_params[:city], brewery_params[:state])
-    if @brewery.save
-      render json:{ message: "Is this the brewery you were looking for?"}
+    name = params[:name]
+    city = params[:city]
+    state = params[:state]
+    location = {city: city, state: state}
+    results = YelpApi.search(name, location)
+    if @brewery.save 
+      render results
     else
-      render json: @brewery.errors, status: :unprocessable_entity
+      render json:{ message: "Sorry, no brewery found"}
     end
   end
 

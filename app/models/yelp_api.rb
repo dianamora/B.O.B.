@@ -4,7 +4,7 @@ class YelpApi < ApplicationRecord
     BUSINESS_PATH = "/v3/businesses/"
     SEARCH_LIMIT = 10
 
-    API_KEY = EVN["YELP_API_KEY"]
+    # API_KEY = EVN["YELP_API_KEY"]
 
     def self.search(term, location)
         url = "#{API_HOST}#{SEARCH_PATH}location=#{location[:city]}, #{location[:state]}&term=#{term}&limit=2"
@@ -13,7 +13,7 @@ class YelpApi < ApplicationRecord
         # location: "location",
         # limit: SEARCH_LIMIT
         # }
-        response = HTTP.auth("Bearer #{API_KEY}").get(url) # (url, params: params)
+        response = HTTP.auth("Bearer #{ENV['API_KEY']}").get(url) # (url, params: params)
         JSON.parse(response)
         #(response.to_json) ?
     end
