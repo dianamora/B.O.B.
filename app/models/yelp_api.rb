@@ -42,7 +42,7 @@ class YelpApi < ApplicationRecord
     end
 
     def self.make_brewery(brewery)
-        @rest_hash = YelpApi.yelp_hash_converter(brewery)
+        @rest_hash = YelpApi.api_hash_converter(brewery)
         if @rest_hash[:name] && !Brewery.find_by_yelp_id(@rest_hash[:yelp_id])
           brewery = Brewery.create(@rest_hash)            
             render brewery
