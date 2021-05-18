@@ -23,7 +23,7 @@ class BreweriesController < ApplicationController
       render json: { message: "Brewery not found" }
     end 
   end
-
+#ATTEMPT ONE
   # POST /breweries
   # def create
   #   @brewery = Brewery.new(brewery_params)
@@ -36,22 +36,43 @@ class BreweriesController < ApplicationController
   #     render json: @brewery.errors, status: :unprocessable_entity
   #   end
   # end
+# ATTEMPT 2
+  # def create
+  #   @brewery = Brewery.new(brewery_params)
+  #   name = params[:name]
+  #   city = params[:city]
+  #   state = params[:state]
+  #   location = {city: city, state: state}
+  #   results = YelpApi.search(name, location)
+  #   if @brewery.save 
+  #     render results
+  #   else
+  #     render json:{ message: "Sorry, no brewery found"}
+  #   end
+  # end
 
-  def create
-    @brewery = Brewery.new(brewery_params)
-    name = params[:name]
-    city = params[:city]
-    state = params[:state]
-    location = {city: city, state: state}
-    results = YelpApi.search(name, location)
-    if @brewery.save 
-      render results
-    else
-      render json:{ message: "Sorry, no brewery found"}
-    end
-  end
+  #ATTEMPT 3
+  # def create
+  #   @brewery = Brewery.new(brewery_params)
+  #   results = YelpApi.search(url:brewery_params[:name][:url][:location]["0"][:url])
+  #   if @brewery.save
+  #     render results
+  #   else
+  #     render json: {message: "Sorry no brewery found"}
+  #   end
+  # end
 
-  def fetch_breweries
+  #POST ACTION WITHOUT API, !!DOES NOT REDIRECT BECAUSE OF HOW FRONTEND IS SET UP!!
+  # def create
+  #   @brewery = Brewery.new(brewery_params)
+  #   if @brewery.save
+  #         redirect_to breweries_path(@brewery)
+  #   else
+  #     render :new
+  #   end
+  # end
+
+  def fetch_breweries #wrote this when I wanted to do 'separation of concerns' but will probably not use
     name = params[:name]
     city = params[:city]
     state = params[:state]
