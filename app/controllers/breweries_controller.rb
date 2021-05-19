@@ -53,15 +53,20 @@ class BreweriesController < ApplicationController
 
   # ATTEMPT 3
   def create
-    @brewery = Brewery.new(brewery_params)
+    # @brewery = Brewery.new(brewery_params)
+    location = "#{params[:city]}, #{params[:state]}"
+   results = YelpApi.search(params[:name], location)
    
-    results = YelpApi.search(params[:name],[:location])
-    # =[{"city" => 0 }])
-    # byebug
-    if params.key?(:location)
-      results.each do |rest|
-        YelpApi.make_brewery(rest)
-      end
+  #  if @brewery.save == results
+  #     results.each do |rest|
+  #       YelpApi.make_brewery(rest)
+        if results["businesses"].length > 0
+          render json: results
+      # end
+    # if @brewery.save == results
+    #   render results
+    #   flash[:alert] = "You have added a new brewery."
+    #   redirect_to brewery_path(@brewery)     
     else
       render json: {message: "Sorry no brewery found"}
     end

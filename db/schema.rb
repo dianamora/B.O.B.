@@ -25,3 +25,16 @@ ActiveRecord::Schema.define(version: 2021_05_16_202642) do
   end
 
 end
+
+#after submitting form data
+# @brewery #outputs the form data 
+# @brewery = YelpApi.search("Montclair Brewing Company", "New Jersey") #outputs yelp api data 
+# @brewery.first = {"businesses"=>[{all the data}]}
+# businesses = @brewery.first
+# businesses.last = all the data array, after business key 
+# array = businesses.last 
+# array.first = accesses the hash inside the array that contains the information I want (name and location). Location has it's own hash with city and state nested inside
+# array[0 => 2] TypeError Exception: no implicit conversion of Hash into Integer
+# array[0][2] nil
+# array[0][:2]SyntaxError Exception: (byebug):1: syntax error, unexpected integer literal
+# array[0] is the hash. [2] is the index within the hash that has "name" => "Montclair Brewing Co"
