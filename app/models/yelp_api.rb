@@ -1,5 +1,5 @@
 class YelpApi < ApplicationRecord
-    has_many :breweries 
+   
 
     API_HOST = "https://api.yelp.com"
     SEARCH_PATH = "/v3/businesses/search"
