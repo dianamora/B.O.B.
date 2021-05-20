@@ -1,4 +1,5 @@
 class YelpApi < ApplicationRecord
+    has_many :breweries
    
 
     API_HOST = "https://api.yelp.com"
