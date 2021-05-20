@@ -29,7 +29,7 @@ class BreweriesController < ApplicationController
     # @brewery = Brewery.new(brewery_params)
     location = "#{params[:city]}, #{params[:state]}"
     results = YelpApi.search(params[:name], location)
-        if results["businesses"].length > 0
+        if results["businesses"].to_s.length > 0
           render json: results
     else
       render json: {message: "Sorry no brewery found"}
