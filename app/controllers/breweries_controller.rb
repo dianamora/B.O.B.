@@ -1,6 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :update, :destroy]
-  belongs_to :yelp_id
+ 
   # GET /breweries
   def index
     @breweries = Brewery.all
