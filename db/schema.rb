@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 2021_05_16_202642) do
 
   create_table "breweries", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6 #,null: false
+    t.datetime "updated_at", precision: 6 #,null: false
     t.integer "yelp_id"
     t.string "city"
     t.string "state"
