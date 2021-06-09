@@ -26,6 +26,7 @@ class BreweriesController < ApplicationController
 
   # ATTEMPT 3
   def create
+    byebug
     # @brewery = Brewery.new(brewery_params)
     location = "#{params[:city]}, #{params[:state]}"
     results = YelpApi.search(params[:name], location)
