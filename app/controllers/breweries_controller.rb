@@ -26,7 +26,7 @@ class BreweriesController < ApplicationController
 
   # ATTEMPT 3
   def create
-    byebug
+   
     # @brewery = Brewery.new(brewery_params)
     location = "#{params[:city]}, #{params[:state]}"
     results = YelpApi.search(params[:name], location)
@@ -36,6 +36,12 @@ class BreweriesController < ApplicationController
       render json: {message: "Sorry no brewery found"}
     end
   end
+
+  #SECOND CLICK AFTER LIST SHOWS UP AND USER HITS SUBMIT:
+    #still going to be handled in the create method for now (get it to work, then worry about splitting later)
+    #want to check to see if there's a yelp_id, that's how you know it came from the confirm
+    #if it has a yelp_id, create that brewery in the backend database #\
+    #render: message "brewery created" and/or render brewery back
 
   # PATCH/PUT /breweries/1
   def update
